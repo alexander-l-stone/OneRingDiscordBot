@@ -37,13 +37,14 @@ function parseCommand(receivedMessage) {
     let reroll = false;
 
     console.log(`Command recieved: ${command}\nArguments: ${arguments}`);
-    arguments.forEach(e => console.log(typeof(e)));
+    console.log(`Arg 0 type`, typeof(arguments[0]))
+    console.log(`Arg 1 type`, typeof(arguments[1]))
     if(command == 'roll'){
         if (Number(arguments[0]) === NaN){
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] !== null){
+        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null){
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
@@ -60,7 +61,7 @@ function parseCommand(receivedMessage) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] !== null) {
+        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null) {
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
@@ -77,7 +78,7 @@ function parseCommand(receivedMessage) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] !== null) {
+        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null) {
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
@@ -94,7 +95,7 @@ function parseCommand(receivedMessage) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] !== null) {
+        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null) {
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
