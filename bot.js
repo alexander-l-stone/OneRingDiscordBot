@@ -138,7 +138,7 @@ function parseHelp(receivedMessage){
 function rollDice(number, gmRoll=false, weary=false, reroll=false){
     let d6Array = []
     let featDie = null
-    for(let i =0; i++; i<number){
+    for (let i = 0; i < number; i++){
         d6Array.push(Math.floor(Math.random() * (6 - 1 + 1)) + 1)
     }
     if(!gmRoll) featDie = rollFeatDie(reroll)
