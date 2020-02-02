@@ -36,13 +36,16 @@ function parseCommand(receivedMessage) {
     const params = splitMessage.slice(1);
     let reroll = false;
 
-    console.log(`Command recieved: ${command}\nparams: ${params}`);
+    console.log(`Command recieved: ${command}\nArguments: ${arguments}`);
+    console.log(`Arg 0 type`, typeof(arguments[0]))
+    console.log(`Arg 1 type`, typeof(arguments[1]))
 
     if(command == 'roll'){
         if (Number(params[0]) === NaN){
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
+
         if (params[1] !== 'false' || params[1] !== 'true' || params[1] !== '' || params[1] !== null){
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
@@ -60,6 +63,7 @@ function parseCommand(receivedMessage) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
+
         if (params[1] !== 'false' || params[1] !== 'true' || params[1] !== '' || params[1] !== null) {
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
@@ -138,7 +142,7 @@ function parseHelp(receivedMessage){
 function rollDice(number, gmRoll=false, weary=false, reroll=false){
     let d6Array = []
     let featDie = null
-    for(let i =0; i++; i<number){
+    for (let i = 0; i < number; i++){
         d6Array.push(Math.floor(Math.random() * (6 - 1 + 1)) + 1)
     }
     if(!gmRoll) featDie = rollFeatDie(reroll)
