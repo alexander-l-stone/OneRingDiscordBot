@@ -37,7 +37,7 @@ function parseCommand(receivedMessage) {
     let reroll = false;
 
     console.log(`Command recieved: ${command}\nArguments: ${arguments}`);
-
+    arguments.forEach(e => console.log(typeof(e)));
     if(command == 'roll'){
         if (Number(arguments[0]) === NaN){
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
