@@ -212,11 +212,11 @@ function resolveRoll(d6Array, featDie){
     const d6String = d6Array.join(', ')
     let retStr = ""
     if(featDie == 0){
-        success += `Catastrophe`
+        success += ` Catastrophe`
     }
     // if evildie, 11 is autosucceed instead
     else if (featDie == 11 || featDie == 12){
-        success += `Automatic`
+        success += ` Automatic`
     }
     retStr += `${featDie + sumd6(d6Array)} [<${featDie}> ${d6String}]\nSuccess Level: ${success}`
 
