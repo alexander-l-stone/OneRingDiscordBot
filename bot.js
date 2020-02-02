@@ -227,3 +227,5 @@ function resolveRoll(d6Array, featDie){
         return `Result: ${featDie + sumd6(d6Array)}, Success Level: ${success}`
     }
 }
+
+client.login(bot_secret_token);
