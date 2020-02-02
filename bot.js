@@ -149,11 +149,12 @@ function parseHelp(receivedMessage){
 
 function rollDice(number, gmRoll=false, weary=false, reroll=false){
     let d6Array = []
+    let featDie = null
     for(let i =0; i++; i<number){
         d6Array.push(Math.floor(Math.random() * (6 - 1 + 1)) + 1)
     }
-    if(!gmRoll) const featDie = rollFeatDie(reroll)
-    else const featDie = rollEvilDie(reroll)
+    if(!gmRoll) featDie = rollFeatDie(reroll)
+    else featDie = rollEvilDie(reroll)
     if(weary) d6Array = wearyd6(d6Array)
     return resolveRoll(d6Array, featDie);
 }
