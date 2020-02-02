@@ -123,16 +123,16 @@ function parseHelp(receivedMessage){
     if(command === 'help' || command === ''){
         receivedMessage.channel.send('There are four supported commands for this bot, roll, rollweary, gmroll, and gmrollweary. Use ?<COMMAND> to learn more about a specific command. Use /<COMMAND> to use a specific command.')
     }
-    else if(params[0] == 'roll'){
+    else if(command == 'roll'){
         receivedMessage.channel.send('This will roll a normal skill check. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ')
     }
-    else if (params[0] == 'rollweary') {
+    else if (command == 'rollweary') {
         receivedMessage.channel.send('This will roll a weary skill check where 1s, 2s, and 3s are counted as 0. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ')
     }
-    else if (params[0] == 'gmroll') {
+    else if (command == 'gmroll') {
         receivedMessage.channel.send("This will roll a gm skill check where the feat die's crit and failure are reversed. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ")
     }
-    else if (params[0] == 'gmrollweary') {
+    else if (command == 'gmrollweary') {
         receivedMessage.channel.send("This will roll a weary gm skill check where the feat die's crit and failure are reversed and 1s, 2s, and 3s count as 0. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ")
     }
 }
