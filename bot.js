@@ -24,7 +24,7 @@ client.on('message', (receivedMessage) => {
     if (receivedMessage.content.startsWith("/")) {
         parseCommand(receivedMessage);
     }
-    else if (receivedMessage.content == "?") {
+    else if (receivedMessage.content.startsWith("?")) {
         parseHelp(receivedMessage);
     }
 });
@@ -36,9 +36,9 @@ function parseCommand(receivedMessage) {
     const params = splitMessage.slice(1);
     let reroll = false;
 
-    console.log(`Command recieved: ${command}\nArguments: ${arguments}`);
-    console.log(`Arg 0 type`, typeof(arguments[0]))
-    console.log(`Arg 1 type`, typeof(arguments[1]))
+    console.log(`Command recieved: ${command}\nArguments: ${params}`);
+    console.log(`Arg 0 type`, typeof(params[0]))
+    console.log(`Arg 1 type`, typeof(params[1]))
 
     if(command == 'roll'){
         if (Number(params[0]) === NaN){
