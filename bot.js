@@ -6,23 +6,11 @@ const logfile = "console.log";
 client.on('ready', () => {
     // List servers the bot is connected to
     console.log("Servers:");
-    fs.appendFile(logfile, 'Server: \n', function (err) {
-        if (err) throw err;
-        console.log("Error writing file!");
-    });
     client.guilds.forEach((guild) => {
         console.log(" - " + guild.name);
-        fs.appendFile(logfile, " - " + guild.name + "\n", function (err) {
-            if (err) throw err;
-            console.log("Error writing file!");
-        });
         // List all channels
         guild.channels.forEach((channel) => {
             console.log(` -- ${channel.name} (${channel.type}) - ${channel.id}`);
-            fs.appendFile(logfile, ` -- ${channel.name} (${channel.type}) - ${channel.id}\n`, function (err) {
-                if (err) throw err;
-                console.log("Error writing file!");
-            });
         });
     });
 });
