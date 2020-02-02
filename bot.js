@@ -195,6 +195,8 @@ function wearyd6(d6Array){
 }
 
 function sumd6(d6Array){
+    if (d6Array.length == 0)
+        return 0
     return d6Array.reduce((a,b) => {
         return a + b;
     })
