@@ -37,10 +37,6 @@ function parseCommand(receivedMessage) {
     let reroll = false;
 
     console.log(`Command recieved: ${command}\nArguments: ${arguments}`);
-    fs.appendFile(logfile, `Command recieved: ${command}\nArguments: ${arguments}\n`, function (err) {
-        if (err) throw err;
-        console.log("Error writing file!");
-    });
 
     if(command == 'roll'){
         if (Number(arguments[0]) === NaN){
@@ -109,6 +105,9 @@ function parseCommand(receivedMessage) {
             reroll = false
         }
         receivedMessage.channel.send(rollDice(Number(arguments[0]), true, true, reroll));
+    }
+    else if (command === 'help' || command === '') {
+        receivedMessage.channel.send('There are four supported commands for this bot, roll, rollweary, gmroll, and gmrollweary. Use ?<COMMAND> to learn more about a specific command. Use /<COMMAND> to use a specific command.')
     }
 }
 
