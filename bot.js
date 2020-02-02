@@ -207,14 +207,15 @@ function resolveRoll(d6Array, featDie){
     else if(d6Count >= 2){
         success = 'Extraordinary'
     }
+    const d6String = d6Array.join(' ')
     if(featDie == 0){
-        return `You rolled a catastrophe on your feat die. Result: ${featDie+sumd6(d6Array)}, Success Level: ${success}`
+        return `You rolled a catastrophe on your feat die. Result: ${featDie+sumd6(d6Array)}, Success Level: ${success}, Feat Die: ${featDie}, Skill Dice: ${d6String}`
     }
     else if (featDie == 11 || featDie == 12){
-        return `You rolled an automatic succcess on your feat die. Result: ${ featDie + sumd6(d6Array) }, Success Level: ${ success }`
+        return `You rolled an automatic succcess on your feat die. Result: ${featDie + sumd6(d6Array)}, Success Level: ${success}, Feat Die: ${featDie}, Skill Dice: ${d6String}`
     }
     else{
-        return `Result: ${featDie + sumd6(d6Array)}, Success Level: ${success}`
+        return `Result: ${featDie + sumd6(d6Array)}, Success Level: ${success}, Feat Die: ${featDie}, Skill Dice: ${d6String}`
     }
 }
 
