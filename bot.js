@@ -33,79 +33,82 @@ function parseCommand(receivedMessage) {
     const fullMessage = receivedMessage.content.substr(1);
     const splitMessage = fullMessage.split(" ");
     const command = splitMessage[0];
-    const arguments = splitMessage.slice(1);
+    const params = splitMessage.slice(1);
     let reroll = false;
 
     console.log(`Command recieved: ${command}\nArguments: ${arguments}`);
     console.log(`Arg 0 type`, typeof(arguments[0]))
     console.log(`Arg 1 type`, typeof(arguments[1]))
+
     if(command == 'roll'){
-        if (Number(arguments[0]) === NaN){
+        if (Number(params[0]) === NaN){
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' && arguments[1] !== 'true' && arguments[1] !== '' && arguments[1] != null && arguments[1] != undefined){
+
+        if (params[1] !== 'false' || params[1] !== 'true' || params[1] !== '' || params[1] !== null){
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
-        if(arguments[1] === 'true'){
+        if(params[1] === 'true'){
             reroll = true
         }
-        else if (arguments[1] === 'false') {
+        else if (params[1] === 'false') {
             reroll = false
         }
-        receivedMessage.channel.send(rollDice(Number(arguments[0]),false, false, reroll));
+        receivedMessage.channel.send(rollDice(Number(params[0]),false, false, reroll));
     }
     else if (command == 'rollweary' || command == 'wearyroll') {
-        if (Number(arguments[0]) === NaN) {
+        if (Number(params[0]) === NaN) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' && arguments[1] !== 'true' && arguments[1] !== '' && arguments[1] != null && arguments[1] != undefined) {
+
+        if (params[1] !== 'false' || params[1] !== 'true' || params[1] !== '' || params[1] !== null) {
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
-        if (arguments[1] === 'true') {
+        if (params[1] === 'true') {
             reroll = true
         }
-        else if (arguments[1] === 'false') {
+        else if (params[1] === 'false') {
             reroll = false
         }
-        receivedMessage.channel.send(rollDice(Number(arguments[0]),false, true, reroll));
+        receivedMessage.channel.send(rollDice(Number(params[0]),false, true, reroll));
     }
     else if (command == 'gmroll') {
-        if (Number(arguments[0]) === NaN) {
+        if (Number(params[0]) === NaN) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' && arguments[1] !== 'true' && arguments[1] !== '' && arguments[1] != null && arguments[1] != undefined) {
+        if (params[1] !== 'false' || params[1] !== 'true' || params[1] !== '' || params[1] !== null) {
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
-        if (arguments[1] === 'true') {
+        if (params[1] === 'true') {
             reroll = true
         }
-        else if (arguments[1] === 'false') {
+        else if (params[1] === 'false') {
             reroll = false
         }
-        receivedMessage.channel.send(rollDice(Number(arguments[0]), true, false, reroll));
+        receivedMessage.channel.send(rollDice(Number(params[0]), true, false, reroll));
     }
     else if (command == 'gmrollweary' || command == 'gmwearyroll') {
-        if (Number(arguments[0]) === NaN) {
+        if (Number(params[0]) === NaN) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' && arguments[1] !== 'true' && arguments[1] !== '' && arguments[1] != null && arguments[1] != undefined) {
+        if (params[1] !== 'false' || params[1] !== 'true' || params[1] !== '' || params[1] !== null) {
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
-        if (arguments[1] === 'true') {
+        if (params[1] === 'true') {
             reroll = true
         }
-        else if (arguments[1] === 'false') {
+        else if (params[1] === 'false') {
             reroll = false
         }
-        receivedMessage.channel.send(rollDice(Number(arguments[0]), true, true, reroll));
+        receivedMessage.channel.send(rollDice(Number(params[0]), true, true, reroll));
     }
     else if (command === 'help' || command === '') {
         receivedMessage.channel.send('There are four supported commands for this bot, roll, rollweary, gmroll, and gmrollweary. Use ?<COMMAND> to learn more about a specific command. Use /<COMMAND> to use a specific command.')
@@ -116,21 +119,22 @@ function parseHelp(receivedMessage){
     const fullMessage = receivedMessage.content.substr(1);
     const splitMessage = fullMessage.split(" ");
     const command = splitMessage[0];
-    const arguments = splitMessage.slice(1);
-
+    const params = splitMessage.slice(1);
+    console.log('command: ', command)
+    console.log('params: ', params)
     if(command === 'help' || command === ''){
         receivedMessage.channel.send('There are four supported commands for this bot, roll, rollweary, gmroll, and gmrollweary. Use ?<COMMAND> to learn more about a specific command. Use /<COMMAND> to use a specific command.')
     }
-    else if(arguments[0] == 'roll'){
+    else if(params[1] == 'roll'){
         receivedMessage.channel.send('This will roll a normal skill check. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ')
     }
-    else if (arguments[0]  == 'rollweary') {
+    else if (params[1] == 'rollweary') {
         receivedMessage.channel.send('This will roll a weary skill check where 1s, 2s, and 3s are counted as 0. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ')
     }
-    else if (arguments[0]  == 'gmroll') {
+    else if (params[1] == 'gmroll') {
         receivedMessage.channel.send("This will roll a gm skill check where the feat die's crit and failure are reversed. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ")
     }
-    else if (arguments[0]  == 'gmrollweary') {
+    else if (params[1] == 'gmrollweary') {
         receivedMessage.channel.send("This will roll a weary gm skill check where the feat die's crit and failure are reversed and 1s, 2s, and 3s count as 0. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ")
     }
 }
