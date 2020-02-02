@@ -74,7 +74,7 @@ function parseCommand(receivedMessage) {
         }
         receivedMessage.channel.send(rollDice(Number(params[0]),false, true, reroll));
     }
-    else if (command == 'gmroll') {
+    else if (command == 'evil') {
         if (Number(params[0]) === NaN) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
@@ -91,7 +91,7 @@ function parseCommand(receivedMessage) {
         }
         receivedMessage.channel.send(rollDice(Number(params[0]), true, false, reroll));
     }
-    else if (command == 'gmrollweary' || command == 'gmwearyroll') {
+    else if (command == 'evilweary' || command == 'gmwearyroll') {
         if (Number(params[0]) === NaN) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
@@ -109,7 +109,7 @@ function parseCommand(receivedMessage) {
         receivedMessage.channel.send(rollDice(Number(params[0]), true, true, reroll));
     }
     else if (command === 'help' || command === '') {
-        receivedMessage.channel.send('There are four supported commands for this bot, roll, rollweary, gmroll, and gmrollweary. Use ?<COMMAND> to learn more about a specific command. Use /<COMMAND> to use a specific command.')
+        receivedMessage.channel.send('There are four supported commands for this bot, roll, rollweary, evil, and evilweary. Use ?<COMMAND> to learn more about a specific command. Use /<COMMAND> to use a specific command.')
     }
 }
 
@@ -121,7 +121,7 @@ function parseHelp(receivedMessage){
     console.log('command: ', command)
     console.log('params: ', params)
     if(command === 'help' || command === ''){
-        receivedMessage.channel.send('There are four supported commands for this bot, roll, rollweary, gmroll, and gmrollweary. Use ?<COMMAND> to learn more about a specific command. Use /<COMMAND> to use a specific command.')
+        receivedMessage.channel.send('There are four supported commands for this bot, roll, rollweary, evil, and evilweary. Use ?<COMMAND> to learn more about a specific command. Use /<COMMAND> to use a specific command.')
     }
     else if(command == 'roll'){
         receivedMessage.channel.send('This will roll a normal skill check. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ')
@@ -129,28 +129,28 @@ function parseHelp(receivedMessage){
     else if (command == 'rollweary') {
         receivedMessage.channel.send('This will roll a weary skill check where 1s, 2s, and 3s are counted as 0. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ')
     }
-    else if (command == 'gmroll') {
-        receivedMessage.channel.send("This will roll a gm skill check where the feat die's crit and failure are reversed. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ")
+    else if (command == 'evil') {
+        receivedMessage.channel.send("This will roll an evil skill check where the feat die's crit and failure are reversed. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ")
     }
-    else if (command == 'gmrollweary') {
-        receivedMessage.channel.send("This will roll a weary gm skill check where the feat die's crit and failure are reversed and 1s, 2s, and 3s count as 0. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ")
+    else if (command == 'evilweary') {
+        receivedMessage.channel.send("This will roll a weary evil skill check where the feat die's crit and failure are reversed and 1s, 2s, and 3s count as 0. The format is /roll <NUMBER OF DICE TO ROLL> <IF FEAT DIE IS REROLLED>. The feat die ")
     }
 }
 
-function rollDice(number, gmRoll=false, weary=false, reroll=false){
+function rollDice(number, evil=false, weary=false, reroll=false){
     let d6Array = []
     let featDie = null
     for (let i = 0; i < number; i++){
-        d6Array.push(Math.floor(Math.random() * (6 - 1 + 1)) + 1)
+        d6Array.push(Math.floor(Math.random() * 6) + 1)
     }
-    if(!gmRoll) featDie = rollFeatDie(reroll)
+    if(!evil) featDie = rollFeatDie(reroll)
     else featDie = rollEvilDie(reroll)
     if(weary) d6Array = wearyd6(d6Array)
     return resolveRoll(d6Array, featDie);
 }
 
 function rollFeatDie(reroll=false){
-    let d12 = Math.floor(Math.random() * (12 - 1 + 1)) + 1;
+    let d12 = Math.floor(Math.random() * 12) + 1;
     if (d12 == 11){
         d12 = 0;
     }
@@ -164,7 +164,9 @@ function rollFeatDie(reroll=false){
 }
 
 function rollEvilDie(reroll=false){
-    let d12 = Math.floor(Math.random() * (12 - 1 + 1)) + 1;
+    let d12 = Math.floor(Math.random() * 12) + 1;
+    // swaps 11 and 12 by knowing that autosucceed checks for either 11 or 12
+    // so only need to remove 12
     if (d12 == 12) {
         d12 = 0;
     }
@@ -207,16 +209,18 @@ function resolveRoll(d6Array, featDie){
     else if(d6Count >= 2){
         success = 'Extraordinary'
     }
-    const d6String = d6Array.join(' ')
+    const d6String = d6Array.join(', ')
+    let retStr = ""
     if(featDie == 0){
-        return `You rolled a catastrophe on your feat die. Result: ${featDie+sumd6(d6Array)}, Success Level: ${success}, Feat Die: ${featDie}, Skill Dice: ${d6String}`
+        success += `Catastrophe`
     }
+    // if evildie, 11 is autosucceed instead
     else if (featDie == 11 || featDie == 12){
-        return `You rolled an automatic succcess on your feat die. Result: ${featDie + sumd6(d6Array)}, Success Level: ${success}, Feat Die: ${featDie}, Skill Dice: ${d6String}`
+        success += `Automatic`
     }
-    else{
-        return `Result: ${featDie + sumd6(d6Array)}, Success Level: ${success}, Feat Die: ${featDie}, Skill Dice: ${d6String}`
-    }
+    retStr += `${featDie + sumd6(d6Array)} [<${featDie}> ${d6String}]\nSuccess Level: ${success}`
+
+    return retStr
 }
 
 client.login(bot_secret_token);
