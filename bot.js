@@ -44,7 +44,7 @@ function parseCommand(receivedMessage) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null){
+        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null || arguments[1] != undefined){
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
@@ -61,7 +61,7 @@ function parseCommand(receivedMessage) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null) {
+        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null || arguments[1] != undefined) {
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
@@ -78,7 +78,7 @@ function parseCommand(receivedMessage) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null) {
+        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null || arguments[1] != undefined) {
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
@@ -95,7 +95,7 @@ function parseCommand(receivedMessage) {
             receivedMessage.channel.send("Please only enter numbers for the number of d6s to roll.")
             return
         }
-        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null) {
+        if (arguments[1] !== 'false' || arguments[1] !== 'true' || arguments[1] !== '' || arguments[1] != null || arguments[1] != undefined) {
             receivedMessage.channel.send('Please enter true, false, or nothing for the reroll feat die argument.')
             return
         }
